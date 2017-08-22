@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poco.Evolved.Core", "Poco.Evolved.Core\Poco.Evolved.Core.csproj", "{519475A3-E0BC-4D10-B3C6-E5A9984D14DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{519475A3-E0BC-4D10-B3C6-E5A9984D14DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{519475A3-E0BC-4D10-B3C6-E5A9984D14DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{519475A3-E0BC-4D10-B3C6-E5A9984D14DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{519475A3-E0BC-4D10-B3C6-E5A9984D14DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6B4FEB64-9971-4D9F-BC08-A1BCA4912AF5}
+	EndGlobalSection
+EndGlobal
