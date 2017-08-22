@@ -1,2 +1,2 @@
 # Poco.Evolved
-Schema and data migration framework for .NET
+Poco.Evolved is a framework based on .NET Standard for schema and data migrations on databases.
