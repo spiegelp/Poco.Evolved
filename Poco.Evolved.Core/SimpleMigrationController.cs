@@ -13,7 +13,7 @@ namespace Poco.Evolved.Core
         /// <summary>
         /// The current version number of the data model.
         /// </summary>
-        public abstract int CurrentVersionNumber { get; }
+        public abstract long CurrentVersionNumber { get; }
 
         public SimpleMigrationController() { }
 
@@ -25,21 +25,30 @@ namespace Poco.Evolved.Core
             // find the latest version installed on the database
             List<InstalledVersion> installedVersions = GetInstalledVersionsSorted();
 
-            int versionNumberOnDatabase = 0;
+            long versionNumberOnDatabase = 0;
 
             if (installedVersions.Any())
             {
-                versionNumberOnDatabase = (int)installedVersions.Last().VersionNumber;
+                versionNumberOnDatabase = installedVersions.Last().VersionNumber;
             }
 
             // apply the open migrations
-            for (int versionNumber = versionNumberOnDatabase; versionNumberOnDatabase <= CurrentVersionNumber; versionNumber++)
+            for (long versionNumber = versionNumberOnDatabase; versionNumberOnDatabase <= CurrentVersionNumber; versionNumber++)
             {
                 try
                 {
-                    ApplyMigration(versionNumber, out string description);
+                    DateTime start = DateTime.Now;
+                    ApplyMigration(versionNumber, out string description, out string checksum);
+                    long executionTime = (long)(DateTime.Now - start).TotalMilliseconds;
 
-                    SaveInstalledVersion(new InstalledVersion() { VersionNumber = versionNumber, Description = description, Installed = DateTimeOffset.UtcNow });
+                    SaveInstalledVersion(new InstalledVersion()
+                    {
+                        VersionNumber = versionNumber,
+                        Description = description,
+                        Installed = DateTimeOffset.UtcNow,
+                        ExecutionTime = executionTime,
+                        Checksum = checksum
+                    });
                 }
                 catch (MigrationFailedException)
                 {
@@ -56,6 +65,8 @@ namespace Poco.Evolved.Core
         /// Applies the data migration for the specified version number.
         /// </summary>
         /// <param name="versionNumber">The version number of the migration for applying</param>
-        public abstract void ApplyMigration(int versionNumber, out string description);
+        /// <param name="description">An optional description for the data migration</param>
+        /// <param name="checksum">An optional checksum for the data migration</param>
+        public abstract void ApplyMigration(long versionNumber, out string description, out string checksum);
     }
 }
