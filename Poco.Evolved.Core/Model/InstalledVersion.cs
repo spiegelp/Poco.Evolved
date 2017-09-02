@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace Poco.Evolved.Core
+namespace Poco.Evolved.Core.Model
 {
     /// <summary>
     /// The information about an installed data migration.
@@ -26,7 +26,7 @@ namespace Poco.Evolved.Core
         public DateTimeOffset Installed { get; set; }
 
         /// <summary>
-        /// A string version for <code>Installed</code>.
+        /// A string version for <see cref="Installed"/>.
         /// This property is used for persistency because the different databases support date and time differently.
         /// Saving an ISO-compliant string bypasses an eventual lack in the database implementation.
         /// </summary>
@@ -44,15 +44,18 @@ namespace Poco.Evolved.Core
         }
 
         /// <summary>
-        /// The execution time of the data migration
+        /// The execution time of the data migration in milliseconds.
         /// </summary>
         public long ExecutionTime { get; set; }
 
         /// <summary>
-        /// The checksum of the data migration.
+        /// An optional checksum of the data migration.
         /// </summary>
         public string Checksum { get; set; }
 
+        /// <summary>
+        /// Constructs a new InstalledVersion.
+        /// </summary>
         public InstalledVersion()
         {
             VersionNumber = -1;
