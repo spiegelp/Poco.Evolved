@@ -11,6 +11,7 @@
     <Authors>Philipp Spiegel</Authors>
     <Company />
     <PackageTags>data schema migration</PackageTags>
+    <PackageIconUrl>https://raw.githubusercontent.com/spiegelp/Poco.Evolved/master/icon/icon.png</PackageIconUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

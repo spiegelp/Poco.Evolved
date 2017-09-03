@@ -7,6 +7,7 @@
     <authors>Philipp Spiegel</authors>
     <licenseUrl>https://github.com/spiegelp/Poco.Evolved/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/spiegelp/Poco.Evolved</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/spiegelp/Poco.Evolved/master/icon/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Poco.Evolved is a framework based on .NET Standard for schema and data migrations on databases.</description>
     <releaseNotes></releaseNotes>
