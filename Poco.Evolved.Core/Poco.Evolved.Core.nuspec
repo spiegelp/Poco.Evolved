@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Poco.Evolved.Core</id>
+    <version>1.0.0</version>
+    <title>Poco.Evolved.Core</title>
+    <authors>Philipp Spiegel</authors>
+    <licenseUrl>https://github.com/spiegelp/Poco.Evolved/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/spiegelp/Poco.Evolved</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Poco.Evolved is a framework based on .NET Standard for schema and data migrations on databases.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) 2017 Spiegel Philipp</copyright>
+    <tags>data schema migration</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\netstandard2.0\Poco.Evolved.Core.dll" target="lib\netstandard2.0\Poco.Evolved.Core.dll" />
+    <file src="bin\Release\netstandard2.0\Poco.Evolved.Core.xml" target="lib\netstandard2.0\Poco.Evolved.Core.xml" />
+  </files>
+</package>

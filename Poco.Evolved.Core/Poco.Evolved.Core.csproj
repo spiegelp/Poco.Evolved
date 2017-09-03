@@ -2,6 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageLicenseUrl>https://github.com/spiegelp/Poco.Evolved/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright (c) 2017 Spiegel Philipp</Copyright>
+    <PackageProjectUrl>https://github.com/spiegelp/Poco.Evolved</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/spiegelp/Poco.Evolved</RepositoryUrl>
+    <Description>Poco.Evolved is a framework based on .NET Standard for schema and data migrations on databases.</Description>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>Philipp Spiegel</Authors>
+    <Company />
+    <PackageTags>data schema migration</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\Poco.Evolved.Core.xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>
