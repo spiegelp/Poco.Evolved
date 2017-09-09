@@ -11,6 +11,11 @@
     <PackageIconUrl>https://raw.githubusercontent.com/spiegelp/Poco.Evolved/master/icon/icon.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/spiegelp/Poco.Evolved</RepositoryUrl>
     <PackageTags>data schema migration litedb</PackageTags>
+    <Version>1.0.0-beta</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\Poco.Evolved.LiteDB.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
