@@ -4,7 +4,6 @@ using System.Text;
 
 using Poco.Evolved.Core;
 using Poco.Evolved.Core.Database;
-using Poco.Evolved.Core.Model;
 using Poco.Evolved.Core.Transactions;
 using Poco.Evolved.LiteDB.Transactions;
 

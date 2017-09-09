@@ -122,7 +122,8 @@ namespace Poco.Evolved.Core
                 .Where(type => !type.IsInterface
                                     && !type.IsAbstract
                                     && type.GetInterfaces().Contains(typeof(IDataMigration<T>))
-                                    && type.GetCustomAttribute<MigrationAttribute>() != null)
+                                    && type.GetCustomAttribute<MigrationAttribute>() != null
+                                    && type.GetConstructor(Type.EmptyTypes) != null)
                 .Select(type => CreateDataMigrationForType(type))
                 .OrderBy(dataMigration => dataMigration.VersionNumber);
         }
@@ -132,6 +133,9 @@ namespace Poco.Evolved.Core
         /// </summary>
         /// <param name="type">The type of the data migration</param>
         /// <returns></returns>
-        protected abstract IDataMigration<T> CreateDataMigrationForType(Type type);
+        protected virtual IDataMigration<T> CreateDataMigrationForType(Type type)
+        {
+            return (IDataMigration<T>)Activator.CreateInstance(type);
+        }
     }
 }
