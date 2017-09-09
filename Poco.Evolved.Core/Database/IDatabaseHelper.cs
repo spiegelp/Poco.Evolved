@@ -24,5 +24,12 @@ namespace Poco.Evolved.Core.Database
         /// </summary>
         /// <param name="installedVersion">The unit of work to work with</param>
         void SaveInstalledVersion(T unitOfWork, InstalledVersion installedVersion);
+
+        /// <summary>
+        /// Gets all installed versions of data migrations installed on the database.
+        /// </summary>
+        /// <param name="unitOfWork">The unit of work to work with</param>
+        /// <returns></returns>
+        IEnumerable<InstalledVersion> GetInstalledVersions(T unitOfWork);
     }
 }

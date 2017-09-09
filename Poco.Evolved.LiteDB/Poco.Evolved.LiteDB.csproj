@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Philipp Spiegel</Authors>
+    <Company>Philipp Spiegel</Company>
+    <Description>Poco.Evolved.LiteDB is a specific implementation of Poco.Evolved for LiteDB (http://www.litedb.org).</Description>
+    <Copyright>Copyright (c) 2017 Spiegel Philipp</Copyright>
+    <PackageLicenseUrl>https://github.com/spiegelp/Poco.Evolved/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/spiegelp/Poco.Evolved</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/spiegelp/Poco.Evolved/master/icon/icon.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/spiegelp/Poco.Evolved</RepositoryUrl>
+    <PackageTags>data schema migration litedb</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiteDB" Version="4.0.0-beta1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Poco.Evolved.Core\Poco.Evolved.Core.csproj" />
+  </ItemGroup>
+
+</Project>

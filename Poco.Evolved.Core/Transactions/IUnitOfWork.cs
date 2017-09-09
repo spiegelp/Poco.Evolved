@@ -5,7 +5,7 @@ using System.Text;
 namespace Poco.Evolved.Core.Transactions
 {
     /// <summary>
-    /// Interface for an unit of work to abstract a transaction.
+    /// Interface for an unit of work to carry information on the database connection and to abstract a transaction.
     /// </summary>
     public interface IUnitOfWork : IDisposable
     {

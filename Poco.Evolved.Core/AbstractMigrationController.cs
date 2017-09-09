@@ -56,18 +56,25 @@ namespace Poco.Evolved.Core
         public abstract void ApplyMigrations();
 
         /// <summary>
-        /// Gets all installed versions of data migrations installed on the database.
-        /// </summary>
-        /// <returns></returns>
-        protected abstract IEnumerable<InstalledVersion> GetInstalledVersions();
-
-        /// <summary>
         /// Gets all installed versions of data migrations installed on the database ordered ascendingly by the version number.
         /// </summary>
         /// <returns></returns>
         protected List<InstalledVersion> GetInstalledVersionsSorted()
         {
-            return GetInstalledVersions().OrderBy(installedVersion => installedVersion.VersionNumber).ToList();
+            using (T unitOfWork = m_unitOfWorkFactory.CreateUnitOfWork())
+            {
+                try
+                {
+                    return m_databaseHelper.GetInstalledVersions(unitOfWork)
+                        .OrderBy(installedVersion => installedVersion.VersionNumber).ToList();
+                }
+                catch (Exception exc)
+                {
+                    unitOfWork?.Rollback();
+
+                    throw new InitializationFailedException("Error during loaded of the installed version. See inner exception for details.", exc);
+                }
+            }
         }
     }
 }
