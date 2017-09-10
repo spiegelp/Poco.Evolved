@@ -53,6 +53,11 @@ namespace Poco.Evolved.Core
         T IDataMigration<T>.UnitOfWork { get; set; }
 
         /// <summary>
+        /// Constructs a new <see cref="AbstractDataMigration" />
+        /// </summary>
+        public AbstractDataMigration() { }
+
+        /// <summary>
         /// Applies the data migration.
         /// </summary>
         public abstract void ApplyMigration();
