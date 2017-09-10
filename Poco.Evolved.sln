@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poco.Evolved.Core", "Poco.Evolved.Core\Poco.Evolved.Core.csproj", "{519475A3-E0BC-4D10-B3C6-E5A9984D14DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poco.Evolved.LiteDB", "Poco.Evolved.LiteDB\Poco.Evolved.LiteDB.csproj", "{44683125-C322-4B68-AD85-96C6FC38A2B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poco.Evolved.LiteDB", "Poco.Evolved.LiteDB\Poco.Evolved.LiteDB.csproj", "{44683125-C322-4B68-AD85-96C6FC38A2B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poco.Evolved.LiteDB.Demo", "Poco.Evolved.LiteDB.Demo\Poco.Evolved.LiteDB.Demo.csproj", "{638A910E-56E5-41B1-B13C-424F633CCF36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{44683125-C322-4B68-AD85-96C6FC38A2B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44683125-C322-4B68-AD85-96C6FC38A2B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44683125-C322-4B68-AD85-96C6FC38A2B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{638A910E-56E5-41B1-B13C-424F633CCF36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{638A910E-56E5-41B1-B13C-424F633CCF36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{638A910E-56E5-41B1-B13C-424F633CCF36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{638A910E-56E5-41B1-B13C-424F633CCF36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
