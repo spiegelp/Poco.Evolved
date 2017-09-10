@@ -48,7 +48,7 @@ namespace Poco.Evolved.Core
             }
 
             // apply the open migrations
-            for (long versionNumber = versionNumberOnDatabase; versionNumberOnDatabase <= CurrentVersionNumber; versionNumber++)
+            for (long versionNumber = versionNumberOnDatabase + 1; versionNumber <= CurrentVersionNumber; versionNumber++)
             {
                 using (T unitOfWork = m_unitOfWorkFactory.CreateUnitOfWork())
                 {
