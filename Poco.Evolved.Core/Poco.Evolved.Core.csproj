@@ -7,7 +7,7 @@
     <PackageProjectUrl>https://github.com/spiegelp/Poco.Evolved</PackageProjectUrl>
     <RepositoryUrl>https://github.com/spiegelp/Poco.Evolved</RepositoryUrl>
     <Description>Poco.Evolved is a framework based on .NET Standard for schema and data migrations on databases.</Description>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Philipp Spiegel</Authors>
     <Company />
     <PackageTags>data schema migration</PackageTags>

@@ -12,6 +12,7 @@
     <RepositoryUrl>https://github.com/spiegelp/Poco.Evolved</RepositoryUrl>
     <PackageTags>data schema migration litedb</PackageTags>
     <Version>1.0.0-beta</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
