@@ -50,7 +50,7 @@ namespace Poco.Evolved.Core
         /// <summary>
         /// The unit of work encapsulating a transaction to work with.
         /// </summary>
-        T IDataMigration<T>.UnitOfWork { get; set; }
+        public T UnitOfWork { get; set; }
 
         /// <summary>
         /// Constructs a new <see cref="AbstractDataMigration" />
