@@ -36,7 +36,7 @@ namespace Poco.Evolved.Core
             else
             {
                 // take the execution assembly, if no specific assembly for to look for the data migrations is set
-                m_assembly = Assembly.GetExecutingAssembly();
+                m_assembly = Assembly.GetEntryAssembly();
             }
         }
 
