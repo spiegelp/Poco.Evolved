@@ -18,6 +18,8 @@ namespace Poco.Evolved.LiteDB.Demo
         {
             try
             {
+                LiteDBDatabaseHelper databaseHelper = new LiteDBDatabaseHelper();
+
                 // simple migrations
                 using (LiteRepository liteRepository = InitDatabase())
                 {
@@ -26,8 +28,9 @@ namespace Poco.Evolved.LiteDB.Demo
 
                     LiteDBSimpleMigrationController controller = new LiteDBDemoSimpleMigrationController(
                         new LiteDBUnitOfWorkFactory(liteRepository),
-                        new LiteDBDatabaseHelper()
+                        databaseHelper
                     );
+
                     controller.ApplyMigrations();
 
                     Console.WriteLine("\nafter simple migrations:");
@@ -37,22 +40,28 @@ namespace Poco.Evolved.LiteDB.Demo
                 // class migrations
                 using (LiteRepository liteRepository = InitDatabase())
                 {
+                    Console.WriteLine("\n\n-----------------------------------\n\n");
                     Console.WriteLine("before class migrations:");
                     PrintPersons(liteRepository);
 
+                    LiteDBClassMigrationController controller = new LiteDBClassMigrationController(
+                        new LiteDBUnitOfWorkFactory(liteRepository),
+                        databaseHelper
+                    );
 
+                    controller.ApplyMigrations();
 
                     Console.WriteLine("\nafter class migrations:");
                     PrintPersons(liteRepository);
                 }
-
-                Console.WriteLine("\nPress enter to exit...");
-                Console.Read();
             }
             catch (Exception exc)
             {
                 Console.WriteLine(exc);
             }
+
+            Console.WriteLine("\nPress enter to exit...");
+            Console.Read();
         }
 
         private static LiteRepository InitDatabase()
