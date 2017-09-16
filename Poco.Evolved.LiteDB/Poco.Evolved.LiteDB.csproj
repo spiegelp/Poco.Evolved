@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <Authors>Philipp Spiegel</Authors>
     <Company>Philipp Spiegel</Company>
-    <Description>Poco.Evolved.LiteDB is a specific implementation of Poco.Evolved for LiteDB (http://www.litedb.org). As a document database, LiteDB is schema-less. However you might update or reorganize some persitent data with your new app version.</Description>
+    <Description>Poco.Evolved.LiteDB is a specific implementation of Poco.Evolved for LiteDB (http://www.litedb.org). As a document database, LiteDB is schema-less. However you might update or reorganize some persistent data with your new app version.</Description>
     <Copyright>Copyright (c) 2017 Spiegel Philipp</Copyright>
     <PackageLicenseUrl>https://github.com/spiegelp/Poco.Evolved/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/spiegelp/Poco.Evolved</PackageProjectUrl>
