@@ -16,7 +16,7 @@ namespace Poco.Evolved.Core.Transactions
         public T Transaction { get; protected set; }
 
         /// <summary>
-        /// Constructs a new <see cref="UnitOfWork"/>.
+        /// Constructs a new <see cref="UnitOfWork<T>"/>.
         /// </summary>
         public UnitOfWork() { }
 

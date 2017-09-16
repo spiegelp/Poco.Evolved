@@ -21,7 +21,7 @@ namespace Poco.Evolved.LiteDB.Demo
                 // simple migrations
                 using (LiteRepository liteRepository = InitDatabase())
                 {
-                    Console.WriteLine("before migrations:");
+                    Console.WriteLine("before simple migrations:");
                     PrintPersons(liteRepository);
 
                     LiteDBSimpleMigrationController controller = new LiteDBDemoSimpleMigrationController(
@@ -30,7 +30,19 @@ namespace Poco.Evolved.LiteDB.Demo
                     );
                     controller.ApplyMigrations();
 
-                    Console.WriteLine("\nafter migrations:");
+                    Console.WriteLine("\nafter simple migrations:");
+                    PrintPersons(liteRepository);
+                }
+
+                // class migrations
+                using (LiteRepository liteRepository = InitDatabase())
+                {
+                    Console.WriteLine("before class migrations:");
+                    PrintPersons(liteRepository);
+
+
+
+                    Console.WriteLine("\nafter class migrations:");
                     PrintPersons(liteRepository);
                 }
 

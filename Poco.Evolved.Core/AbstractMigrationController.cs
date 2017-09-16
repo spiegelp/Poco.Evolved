@@ -20,7 +20,7 @@ namespace Poco.Evolved.Core
         protected readonly IDatabaseHelper<T> m_databaseHelper;
 
         /// <summary>
-        /// Constructs a new <see cref="AbstractMigrationController"/>.
+        /// Constructs a new <see cref="AbstractMigrationController<T>"/>.
         /// </summary>
         /// <param name="unitOfWorkFactory">The factory for the specific unit of work</param>
         /// <param name="databaseHelper">The helper for the specific database</param>
