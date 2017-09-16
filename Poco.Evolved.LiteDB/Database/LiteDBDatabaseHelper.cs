@@ -51,7 +51,8 @@ namespace Poco.Evolved.LiteDB.Database
         /// <summary>
         /// Saves the information about an installed data migration.
         /// </summary>
-        /// <param name="installedVersion">The unit of work to work with</param>
+        /// <param name="unitOfWork">The unit of work to work with</param>
+        /// <param name="installedVersion">The information of a version to save</param>
         public void SaveInstalledVersion(LiteDBUnitOfWork unitOfWork, InstalledVersion installedVersion)
         {
             unitOfWork.LiteRepository.Insert(installedVersion, m_installedVersionsCollectionName);

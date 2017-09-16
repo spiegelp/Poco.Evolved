@@ -22,7 +22,8 @@ namespace Poco.Evolved.Core.Database
         /// <summary>
         /// Saves the information about an installed data migration.
         /// </summary>
-        /// <param name="installedVersion">The unit of work to work with</param>
+        /// <param name="unitOfWork">The unit of work to work with</param>
+        /// <param name="installedVersion">The information of a version to save</param>
         void SaveInstalledVersion(T unitOfWork, InstalledVersion installedVersion);
 
         /// <summary>
