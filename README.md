@@ -16,5 +16,8 @@ Binaries are available as NuGet package for .NET Standard 2.0 and .NET Framework
 * [Poco.Evolved.Core](https://www.nuget.org/packages/Poco.Evolved.Core/)
 * [Poco.Evolved.LiteDB](https://www.nuget.org/packages/Poco.Evolved.LiteDB)
 
+## Usage
+Documentation under construction. Have a look at the Poco.Evolved.???.Demo projects for an usage example. 
+
 ## License
 Poco.Evolved is licensed under the [MIT](https://github.com/spiegelp/Poco.Evolved/blob/master/LICENSE) license. 
