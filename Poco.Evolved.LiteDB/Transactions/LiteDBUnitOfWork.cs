@@ -30,7 +30,7 @@ namespace Poco.Evolved.LiteDB.Transactions
         /// <summary>
         /// Disposes the exclusive resources of this unit of work.
         /// </summary>
-        public void Dispose()
+        public virtual void Dispose()
         {
             // nothing to do
         }
@@ -38,21 +38,21 @@ namespace Poco.Evolved.LiteDB.Transactions
         /// <summary>
         /// Not implemented because LiteDb v4 does not have transactions.
         /// </summary>
-        public void BeginTransaction() { }
+        public virtual void BeginTransaction() { }
 
         /// <summary>
         /// Not implemented because LiteDb v4 does not have transactions.
         /// </summary>
-        public void DisposeTransaction() { }
+        public virtual void DisposeTransaction() { }
 
         /// <summary>
         /// Not implemented because LiteDb v4 does not have transactions.
         /// </summary>
-        public void Commit() { }
+        public virtual void Commit() { }
 
         /// <summary>
         /// Not implemented because LiteDb v4 does not have transactions.
         /// </summary>
-        public void Rollback() { }
+        public virtual void Rollback() { }
     }
 }
