@@ -23,6 +23,9 @@ namespace Poco.Evolved.SQL.Database
         {
             switch (databaseType)
             {
+                case DatabaseType.Firebird:
+                    return new FirebirdDatabaseHelper(installedVersionsTableName);
+
                 case DatabaseType.SQLite:
                     return new SQLiteDatabaseHelper(installedVersionsTableName);
 

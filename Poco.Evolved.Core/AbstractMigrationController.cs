@@ -39,7 +39,11 @@ namespace Poco.Evolved.Core
             {
                 try
                 {
+                    unitOfWork.BeginTransaction();
+
                     m_databaseHelper.InitInstalledVersions(unitOfWork);
+
+                    unitOfWork.Commit();
                 }
                 catch (Exception exc)
                 {

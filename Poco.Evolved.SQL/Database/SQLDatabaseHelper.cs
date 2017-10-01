@@ -88,10 +88,10 @@ namespace Poco.Evolved.SQL.Database
             return string.Format(
                 "CREATE TABLE {0} ({1}, {2}, {3}, {4}, {5}, {6})",
                 m_installedVersionsTableName,
-                ConvertToNameOnDatabase(nameof(InstalledVersion.VersionNumber)) + " DECIMAL(15, 0) NOT NULL",
+                ConvertToNameOnDatabase(nameof(InstalledVersion.VersionNumber)) + " DECIMAL(18, 0) NOT NULL",
                 ConvertToNameOnDatabase(nameof(InstalledVersion.Description)) + " VARCHAR(1024)",
                 ConvertToNameOnDatabase(nameof(InstalledVersion.Installed)) + " VARCHAR(38) NOT NULL",
-                ConvertToNameOnDatabase(nameof(InstalledVersion.ExecutionTime)) + " DECIMAL(15, 0) NOT NULL",
+                ConvertToNameOnDatabase(nameof(InstalledVersion.ExecutionTime)) + " DECIMAL(18, 0) NOT NULL",
                 ConvertToNameOnDatabase(nameof(InstalledVersion.Checksum)) + " VARCHAR(1024)",
                 "PRIMARY KEY(" + ConvertToNameOnDatabase(nameof(InstalledVersion.VersionNumber)) + ")"
             );
@@ -137,8 +137,6 @@ namespace Poco.Evolved.SQL.Database
                 // very rude way to check if a table exists:
                 //     there is no standard way to check if a table exists, therefore try to select from it and see if the command throws an exception
                 bool tableExists = false;
-
-                unitOfWork.BeginTransaction();
 
                 using (IDbCommand command = unitOfWork.Connection.CreateCommand())
                 {
