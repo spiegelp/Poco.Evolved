@@ -19,7 +19,7 @@ namespace Poco.Evolved.SQL.Database
         /// <param name="databaseType">The database type for the <see cref="IDatabaseHelper<SQLUnitOfWork>" /></param>
         /// <param name="installedVersionsTableName">Optional name of the table for saving the information about installed versions</param>
         /// <returns></returns>
-        public IDatabaseHelper<SQLUnitOfWork> CreateDatabaseHelper(DatabaseType databaseType = DatabaseType.Generic, string installedVersionsTableName = null)
+        public static IDatabaseHelper<SQLUnitOfWork> CreateDatabaseHelper(DatabaseType databaseType = DatabaseType.Generic, string installedVersionsTableName = null)
         {
             switch (databaseType)
             {
