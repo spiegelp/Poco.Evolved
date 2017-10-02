@@ -43,7 +43,7 @@ namespace Poco.Evolved.SQL.Database
                 ));
             }
 
-            m_installedVersionsTableName = string.IsNullOrWhiteSpace(installedVersionsTableName)
+            m_installedVersionsTableName = !string.IsNullOrWhiteSpace(installedVersionsTableName)
                 ? installedVersionsTableName : ConvertToNameOnDatabase(DefaultInstalledVersionsTableName);
         }
 
@@ -65,7 +65,7 @@ namespace Poco.Evolved.SQL.Database
                 if (i > 0 && c == cUpper)
                 {
                     char cPrev = name[i - 1];
-                    char cPrevUpper = name[i - 1];
+                    char cPrevUpper = nameUpper[i - 1];
 
                     if (cPrev != cPrevUpper)
                     {
@@ -141,6 +141,7 @@ namespace Poco.Evolved.SQL.Database
                 using (IDbCommand command = unitOfWork.Connection.CreateCommand())
                 {
                     command.CommandText = "SELECT COUNT(*) FROM " + m_installedVersionsTableName;
+                    command.Transaction = unitOfWork.Transaction;
 
                     try
                     {
@@ -167,6 +168,7 @@ namespace Poco.Evolved.SQL.Database
                 using (IDbCommand command = unitOfWork.Connection.CreateCommand())
                 {
                     command.CommandText = createTableScript;
+                    command.Transaction = unitOfWork.Transaction;
 
                     command.ExecuteNonQuery();
                 }
@@ -181,7 +183,7 @@ namespace Poco.Evolved.SQL.Database
         public virtual void SaveInstalledVersion(SQLUnitOfWork unitOfWork, InstalledVersion installedVersion)
         {
             string insertScript = string.Format(
-                "INSERT INTO {0} ({1}, {2}, {3}, {4}, {5}) VALUES (@VerionNumber, @Description, @Installed, @ExecutionTime, @Checksum)",
+                "INSERT INTO {0} ({1}, {2}, {3}, {4}, {5}) VALUES (@VersionNumber, @Description, @Installed, @ExecutionTime, @Checksum)",
                 m_installedVersionsTableName,
                 ConvertToNameOnDatabase(nameof(InstalledVersion.VersionNumber)),
                 ConvertToNameOnDatabase(nameof(InstalledVersion.Description)),
@@ -193,9 +195,10 @@ namespace Poco.Evolved.SQL.Database
             using (IDbCommand command = unitOfWork.Connection.CreateCommand())
             {
                 command.CommandText = insertScript;
+                command.Transaction = unitOfWork.Transaction;
 
                 IDbDataParameter parameter = command.CreateParameter();
-                parameter.ParameterName = "VerionNumber";
+                parameter.ParameterName = "VersionNumber";
                 parameter.DbType = DbType.Int64;
                 parameter.Value = installedVersion.VersionNumber;
                 command.Parameters.Add(parameter);
@@ -203,7 +206,7 @@ namespace Poco.Evolved.SQL.Database
                 parameter = command.CreateParameter();
                 parameter.ParameterName = "Description";
                 parameter.DbType = DbType.String;
-                parameter.Value = TruncateStringToLength(installedVersion.Description, 1024);
+                parameter.Value = (object)TruncateStringToLength(installedVersion.Description, 1024) ?? DBNull.Value;
                 command.Parameters.Add(parameter);
 
                 parameter = command.CreateParameter();
@@ -221,7 +224,7 @@ namespace Poco.Evolved.SQL.Database
                 parameter = command.CreateParameter();
                 parameter.ParameterName = "Checksum";
                 parameter.DbType = DbType.String;
-                parameter.Value = installedVersion.Checksum;
+                parameter.Value = (object)installedVersion.Checksum ?? DBNull.Value;
                 command.Parameters.Add(parameter);
 
                 command.ExecuteNonQuery();
@@ -235,7 +238,7 @@ namespace Poco.Evolved.SQL.Database
         /// <returns></returns>
         public virtual IEnumerable<InstalledVersion> GetInstalledVersions(SQLUnitOfWork unitOfWork)
         {
-            string insertScript = string.Format(
+            string selectScript = string.Format(
                 "SELECT {0}, {1}, {2}, {3}, {4} FROM {5}",
                 ConvertToNameOnDatabase(nameof(InstalledVersion.VersionNumber)),
                 ConvertToNameOnDatabase(nameof(InstalledVersion.Description)),
@@ -247,6 +250,9 @@ namespace Poco.Evolved.SQL.Database
 
             using (IDbCommand command = unitOfWork.Connection.CreateCommand())
             {
+                command.CommandText = selectScript;
+                command.Transaction = unitOfWork.Transaction;
+
                 using (IDataReader reader = command.ExecuteReader())
                 {
                     List<InstalledVersion> installedVersions = new List<InstalledVersion>();

@@ -46,7 +46,7 @@ namespace Poco.Evolved.SQL.Transactions
         {
             if (Transaction != null)
             {
-                Transaction.Rollback();
+                DisposeTransaction();
             }
 
             Transaction = Connection.BeginTransaction();
@@ -59,7 +59,6 @@ namespace Poco.Evolved.SQL.Transactions
         {
             if (Transaction != null)
             {
-                Transaction.Rollback();
                 Transaction.Dispose();
                 Transaction = null;
             }

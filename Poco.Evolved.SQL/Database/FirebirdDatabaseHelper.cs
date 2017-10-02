@@ -46,6 +46,7 @@ namespace Poco.Evolved.SQL.Database
             using (IDbCommand command = unitOfWork.Connection.CreateCommand())
             {
                 command.CommandText = "SELECT COUNT(*) FROM RDB$RELATIONS WHERE RDB$RELATION_NAME = '" + m_installedVersionsTableName + "'";
+                command.Transaction = unitOfWork.Transaction;
 
                 tableExists = ((int)command.ExecuteScalar()) > 0;
             }
@@ -55,6 +56,7 @@ namespace Poco.Evolved.SQL.Database
                 using (IDbCommand command = unitOfWork.Connection.CreateCommand())
                 {
                     command.CommandText = GetCreateInstalledVersionsTableScript();
+                    command.Transaction = unitOfWork.Transaction;
 
                     command.ExecuteNonQuery();
                 }
