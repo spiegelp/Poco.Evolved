@@ -46,12 +46,22 @@ namespace Poco.Evolved.SQL
         {
             using (IDbCommand command = UnitOfWork.Connection.CreateCommand())
             {
-                StreamReader sr = m_streamReaderFactory();
-                command.CommandText = sr.ReadToEnd();
+                command.Transaction = UnitOfWork.Transaction;
 
-                if (m_closeStream)
+                StreamReader sr = null;
+
+                try
                 {
-                    sr.Close();
+                    sr = m_streamReaderFactory();
+
+                    command.CommandText = sr.ReadToEnd();
+                }
+                finally
+                {
+                    if (m_closeStream)
+                    {
+                        sr?.Close();
+                    }
                 }
 
                 command.ExecuteNonQuery();
