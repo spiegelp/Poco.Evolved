@@ -9,3 +9,7 @@
 ### v1.0.0-beta
 #### Features
 * Implementation of Poco.Evolved.Core for [LiteDB](http://www.litedb.org/) version v4.0.0-beta1
+## Poco.Evolved.SQL
+### v1.0.0
+#### Features
+* Implementation of Poco.Evolved.Core for SQL databases
