@@ -7,11 +7,12 @@ namespace Poco.Evolved.SQL.Demo
 {
     public class PersonDao
     {
-        public static void CreateDatabase(IDbConnection connection)
+        public static void CreateDatabase(IDbConnection connection, IDbTransaction transaction)
         {
             using (IDbCommand command = connection.CreateCommand())
             {
                 command.CommandText = "CREATE TABLE PERSONS (ID TEXT PRIMARY KEY NOT NULL, NAME TEXT, AGE INTEGER) WITHOUT ROWID";
+                command.Transaction = transaction;
                 command.ExecuteNonQuery();
 
                 Person person = new Person() { Name = "Alice" };
@@ -43,11 +44,13 @@ namespace Poco.Evolved.SQL.Demo
             }
         }
 
-        public static List<Person> GetAllPersons(IDbConnection connection)
+        public static List<Person> GetAllPersons(IDbConnection connection, IDbTransaction transaction)
         {
             using (IDbCommand command = connection.CreateCommand())
             {
                 command.CommandText = "SELECT ID, NAME, AGE FROM PERSONS";
+                command.Transaction = transaction;
+
                 List<Person> persons = new List<Person>();
 
                 using (IDataReader reader = command.ExecuteReader())
@@ -69,7 +72,7 @@ namespace Poco.Evolved.SQL.Demo
             }
         }
 
-        public static void UpdatePerson(IDbConnection connection, Person person)
+        public static void UpdatePerson(IDbConnection connection, IDbTransaction transaction, Person person)
         {
             using (IDbCommand command = connection.CreateCommand())
             {
@@ -79,6 +82,8 @@ namespace Poco.Evolved.SQL.Demo
                     person.Age,
                     person.Id
                 );
+
+                command.Transaction = transaction;
 
                 command.ExecuteNonQuery();
             }

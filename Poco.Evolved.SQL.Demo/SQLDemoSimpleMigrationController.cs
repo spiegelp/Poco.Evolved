@@ -31,7 +31,7 @@ namespace Poco.Evolved.SQL.Demo
             {
                 case 1:
                     // insert persons
-                    PersonDao.CreateDatabase(unitOfWork.Connection);
+                    PersonDao.CreateDatabase(unitOfWork.Connection, unitOfWork.Transaction);
 
                     description = "insert persons";
 
@@ -39,11 +39,11 @@ namespace Poco.Evolved.SQL.Demo
 
                 case 2:
                     // extend the names
-                    PersonDao.GetAllPersons(unitOfWork.Connection).ForEach(person =>
+                    PersonDao.GetAllPersons(unitOfWork.Connection, unitOfWork.Transaction).ForEach(person =>
                     {
                         person.Name = person.Name + " " + person.Name.ToUpper();
 
-                        PersonDao.UpdatePerson(unitOfWork.Connection, person);
+                        PersonDao.UpdatePerson(unitOfWork.Connection, unitOfWork.Transaction, person);
                     });
 
                     description = "extend name";
@@ -52,11 +52,11 @@ namespace Poco.Evolved.SQL.Demo
 
                 case 3:
                     // add age to the persons
-                    PersonDao.GetAllPersons(unitOfWork.Connection).ForEach(person =>
+                    PersonDao.GetAllPersons(unitOfWork.Connection, unitOfWork.Transaction).ForEach(person =>
                     {
                         person.Age = 20;
 
-                        PersonDao.UpdatePerson(unitOfWork.Connection, person);
+                        PersonDao.UpdatePerson(unitOfWork.Connection, unitOfWork.Transaction, person);
                     });
 
                     description = "add age";

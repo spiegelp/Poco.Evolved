@@ -262,10 +262,10 @@ namespace Poco.Evolved.SQL.Database
                         installedVersions.Add(new InstalledVersion()
                         {
                             VersionNumber = reader.GetInt64(0),
-                            Description = reader.GetString(1),
+                            Description = reader.IsDBNull(1) ? null : reader.GetString(1),
                             InstalledString = reader.GetString(2),
                             ExecutionTime = reader.GetInt64(3),
-                            Checksum = reader.GetString(4)
+                            Checksum = reader.IsDBNull(4) ? null : reader.GetString(4)
                         });
                     }
 

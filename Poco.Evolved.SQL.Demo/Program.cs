@@ -22,40 +22,39 @@ namespace Poco.Evolved.SQL.Demo
             {
                 SQLitePCL.Batteries.Init();
 
+                // initialize the helper for SQLite databases
                 SQLiteDatabaseHelper databaseHelper = (SQLiteDatabaseHelper)DatabaseHelperFactory.CreateDatabaseHelper(DatabaseType.SQLite);
                 databaseHelper.WithoutRowIdEnabled = true;
-
-                // simple migrations
+                
                 using (IDbConnection connection = InitDatabase())
                 {
-                    SQLDemoSimpleMigrationController controller = new SQLDemoSimpleMigrationController(
+                    // simple migrations (SQLDemoSimpleMigrationController.cs)
+                    //     1. create database and insert persons with a name
+                    //     2. append Name = Name + " " + ToUpper(Name)
+                    //     3. set the age to 20
+                    SQLDemoSimpleMigrationController simpleMigrationController = new SQLDemoSimpleMigrationController(
                         new SQLUnitOfWorkFactory(connection),
                         databaseHelper
                     );
 
-                    controller.ApplyMigrations();
+                    simpleMigrationController.ApplyMigrations();
 
                     Console.WriteLine("simple migrations result:");
                     PrintPersons(connection);
-                }
 
-                // class migrations
-                /*using (LiteRepository liteRepository = InitDatabase())
-                {
-                    Console.WriteLine("\n\n-----------------------------------\n\n");
-                    Console.WriteLine("before class migrations:");
-                    PrintPersons(liteRepository);
-
-                    LiteDBClassMigrationController controller = new LiteDBClassMigrationController(
-                        new LiteDBUnitOfWorkFactory(liteRepository),
+                    // class migrations (Migration.cs)
+                    //     1. Age = Age + 2 using code
+                    //     2. Age = Age + 10 using a SQL statement out of a stream
+                    SQLClassMigrationController classMigrationController = new SQLClassMigrationController(
+                        new SQLUnitOfWorkFactory(connection),
                         databaseHelper
                     );
 
-                    controller.ApplyMigrations();
+                    classMigrationController.ApplyMigrations();
 
-                    Console.WriteLine("\nafter class migrations:");
-                    PrintPersons(liteRepository);
-                }*/
+                    Console.WriteLine("\nclass migrations result:");
+                    PrintPersons(connection);
+                }
             }
             catch (Exception exc)
             {
@@ -90,12 +89,15 @@ namespace Poco.Evolved.SQL.Demo
 
         private static void PrintPersons(IDbConnection connection)
         {
-            IEnumerable<Person> persons = PersonDao.GetAllPersons(connection)
-                .OrderBy(person => person.Name);
-
-            foreach (Person person in persons)
+            using (IDbTransaction transaction = connection.BeginTransaction())
             {
-                Console.WriteLine("{0}, {1} years old", person.Name, person.Age);
+                IEnumerable<Person> persons = PersonDao.GetAllPersons(connection, transaction)
+                    .OrderBy(person => person.Name);
+
+                foreach (Person person in persons)
+                {
+                    Console.WriteLine("{0}, {1} years old", person.Name, person.Age);
+                }
             }
         }
     }
