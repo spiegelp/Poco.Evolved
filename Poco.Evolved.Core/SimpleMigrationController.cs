@@ -12,7 +12,7 @@ using Poco.Evolved.Core.Transactions;
 namespace Poco.Evolved.Core
 {
     /// <summary>
-    /// Base controller for simple data migrations similar to Android's built in SQLite.
+    /// Base controller for simple data migrations similar to Android's built-in SQLite.
     /// </summary>
     /// <typeparam name="T">The type of the specific <see cref="IUnitOfWork"/></typeparam>
     public abstract class SimpleMigrationController<T> : AbstractMigrationController<T> where T : class, IUnitOfWork

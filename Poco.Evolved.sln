@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poco.Evolved.LiteDB", "Poco
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poco.Evolved.LiteDB.Demo", "Poco.Evolved.LiteDB.Demo\Poco.Evolved.LiteDB.Demo.csproj", "{638A910E-56E5-41B1-B13C-424F633CCF36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poco.Evolved.SQL", "Poco.Evolved.SQL\Poco.Evolved.SQL.csproj", "{8FFE344B-CD39-483A-9F74-376ADBAF4EE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poco.Evolved.SQL", "Poco.Evolved.SQL\Poco.Evolved.SQL.csproj", "{8FFE344B-CD39-483A-9F74-376ADBAF4EE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poco.Evolved.SQL.Demo", "Poco.Evolved.SQL.Demo\Poco.Evolved.SQL.Demo.csproj", "{275254FF-937B-4E08-AC42-50DD1521A92C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8FFE344B-CD39-483A-9F74-376ADBAF4EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FFE344B-CD39-483A-9F74-376ADBAF4EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FFE344B-CD39-483A-9F74-376ADBAF4EE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{275254FF-937B-4E08-AC42-50DD1521A92C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{275254FF-937B-4E08-AC42-50DD1521A92C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{275254FF-937B-4E08-AC42-50DD1521A92C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{275254FF-937B-4E08-AC42-50DD1521A92C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
