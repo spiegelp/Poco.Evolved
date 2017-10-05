@@ -11,7 +11,12 @@ using Poco.Evolved.SQL.Transactions;
 namespace Poco.Evolved.SQL.Database
 {
     /// <summary>
-    /// Helper for database specific operations on a SQL databases.
+    /// Generic helper for database specific operations on a SQL databases.
+    /// This helper may not work with every SQL database because of different compliance with the SQL standard (or not implementing optional parts) and different DDL features.
+    /// Therefore, specific helpers might be needed for the CREATE TABLE statement to store the information about installed versions.
+    /// If there is not a specific helper for a particular database and the generic CREATE TABLE will fail, <code>skipInitInstalledVersions = true</code> skips the CREATE TABLE statement.
+    /// The table must be created manually in this case.
+    /// The SELECT, UPDATE and INSERT statements however should be fine with every database supporting basic standard SQL.
     /// </summary>
     public class SQLDatabaseHelper : IDatabaseHelper<SQLUnitOfWork>
     {
@@ -26,12 +31,16 @@ namespace Poco.Evolved.SQL.Database
         protected const string DefaultInstalledVersionsTableName = nameof(InstalledVersion) + "s";
 
         protected readonly string m_installedVersionsTableName;
+        protected readonly bool m_skipInitInstalledVersions;
 
         /// <summary>
         /// Constructs a new <see cref="SQLDatabaseHelper" />.
         /// </summary>
         /// <param name="installedVersionsTableName">Optional name of the table for saving the information about installed versions</param>
-        public SQLDatabaseHelper(string installedVersionsTableName = null)
+        /// <param name="skipInitInstalledVersions">
+        /// Optionally skip the CREATE TABLE statement for the table storing the information about installed versions (the table must be created manually beforehand)
+        /// </param>
+        public SQLDatabaseHelper(string installedVersionsTableName = null, bool skipInitInstalledVersions = false)
         {
             if (!string.IsNullOrWhiteSpace(installedVersionsTableName)
                 && installedVersionsTableName.Length > MaxInstalledVersionsTableNameLength)
@@ -45,6 +54,8 @@ namespace Poco.Evolved.SQL.Database
 
             m_installedVersionsTableName = !string.IsNullOrWhiteSpace(installedVersionsTableName)
                 ? installedVersionsTableName : ConvertToNameOnDatabase(DefaultInstalledVersionsTableName);
+
+            m_skipInitInstalledVersions = skipInitInstalledVersions;
         }
 
         /// <summary>
@@ -130,47 +141,50 @@ namespace Poco.Evolved.SQL.Database
         /// <param name="unitOfWork">The unit of work to work with</param>
         public virtual void InitInstalledVersions(SQLUnitOfWork unitOfWork)
         {
-            string createTableScript = GetCreateInstalledVersionsTableIfNotExistsScript();
-
-            if (string.IsNullOrWhiteSpace(createTableScript))
+            if (!m_skipInitInstalledVersions)
             {
-                // very rude way to check if a table exists:
-                //     there is no standard way to check if a table exists, therefore try to select from it and see if the command throws an exception
-                bool tableExists = false;
+                string createTableScript = GetCreateInstalledVersionsTableIfNotExistsScript();
 
-                using (IDbCommand command = unitOfWork.Connection.CreateCommand())
+                if (string.IsNullOrWhiteSpace(createTableScript))
                 {
-                    command.CommandText = "SELECT COUNT(*) FROM " + m_installedVersionsTableName;
-                    command.Transaction = unitOfWork.Transaction;
+                    // very rude way to check if a table exists:
+                    //     there is no standard way to check if a table exists, therefore try to select from it and see if the command throws an exception
+                    bool tableExists = false;
 
-                    try
+                    using (IDbCommand command = unitOfWork.Connection.CreateCommand())
                     {
-                        command.ExecuteScalar();
+                        command.CommandText = "SELECT COUNT(*) FROM " + m_installedVersionsTableName;
+                        command.Transaction = unitOfWork.Transaction;
 
-                        // the table exists, because the SELECT did not fail
-                        tableExists = true;
+                        try
+                        {
+                            command.ExecuteScalar();
+
+                            // the table exists, because the SELECT did not fail
+                            tableExists = true;
+                        }
+                        catch (Exception)
+                        {
+                            // the SELECT fails so the table likely does not exist
+                            tableExists = false;
+                        }
                     }
-                    catch (Exception)
+
+                    if (!tableExists)
                     {
-                        // the SELECT fails so the table likely does not exist
-                        tableExists = false;
+                        createTableScript = GetCreateInstalledVersionsTableScript();
                     }
                 }
 
-                if (!tableExists)
+                if (!string.IsNullOrWhiteSpace(createTableScript))
                 {
-                    createTableScript = GetCreateInstalledVersionsTableScript();
-                }
-            }
+                    using (IDbCommand command = unitOfWork.Connection.CreateCommand())
+                    {
+                        command.CommandText = createTableScript;
+                        command.Transaction = unitOfWork.Transaction;
 
-            if (!string.IsNullOrWhiteSpace(createTableScript))
-            {
-                using (IDbCommand command = unitOfWork.Connection.CreateCommand())
-                {
-                    command.CommandText = createTableScript;
-                    command.Transaction = unitOfWork.Transaction;
-
-                    command.ExecuteNonQuery();
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
         }

@@ -15,8 +15,11 @@ namespace Poco.Evolved.SQL.Database
         /// Constructs a new <see cref="FirebirdDatabaseHelper" />.
         /// </summary>
         /// <param name="installedVersionsTableName">Optional name of the table for saving the information about installed versions</param>
-        public FirebirdDatabaseHelper(string installedVersionsTableName = null)
-            : base(installedVersionsTableName) { }
+        /// <param name="skipInitInstalledVersions">
+        /// Optionally skip the CREATE TABLE statement for the table storing the information about installed versions (the table must be created manually beforehand)
+        /// </param>
+        public FirebirdDatabaseHelper(string installedVersionsTableName = null, bool skipInitInstalledVersions = false)
+            : base(installedVersionsTableName, skipInitInstalledVersions) { }
 
         /// <summary>
         /// Gets the SQL script to create the table for saving information on installed versions.
@@ -41,24 +44,27 @@ namespace Poco.Evolved.SQL.Database
         /// <param name="unitOfWork">The unit of work to work with</param>
         public override void InitInstalledVersions(SQLUnitOfWork unitOfWork)
         {
-            bool tableExists = false;
-
-            using (IDbCommand command = unitOfWork.Connection.CreateCommand())
+            if (!m_skipInitInstalledVersions)
             {
-                command.CommandText = "SELECT COUNT(*) FROM RDB$RELATIONS WHERE RDB$RELATION_NAME = '" + m_installedVersionsTableName + "'";
-                command.Transaction = unitOfWork.Transaction;
+                bool tableExists = false;
 
-                tableExists = ((int)command.ExecuteScalar()) > 0;
-            }
-
-            if (!tableExists)
-            {
                 using (IDbCommand command = unitOfWork.Connection.CreateCommand())
                 {
-                    command.CommandText = GetCreateInstalledVersionsTableScript();
+                    command.CommandText = "SELECT COUNT(*) FROM RDB$RELATIONS WHERE RDB$RELATION_NAME = '" + m_installedVersionsTableName + "'";
                     command.Transaction = unitOfWork.Transaction;
 
-                    command.ExecuteNonQuery();
+                    tableExists = ((int)command.ExecuteScalar()) > 0;
+                }
+
+                if (!tableExists)
+                {
+                    using (IDbCommand command = unitOfWork.Connection.CreateCommand())
+                    {
+                        command.CommandText = GetCreateInstalledVersionsTableScript();
+                        command.Transaction = unitOfWork.Transaction;
+
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
         }

@@ -20,9 +20,12 @@ namespace Poco.Evolved.SQL.Database
         /// Constructs a new <see cref="SQLiteDatabaseHelper" />.
         /// </summary>
         /// <param name="installedVersionsTableName">Optional name of the table for saving the information about installed versions</param>
+        /// <param name="skipInitInstalledVersions">
+        /// Optionally skip the CREATE TABLE statement for the table storing the information about installed versions (the table must be created manually beforehand)
+        /// </param>
         /// <param name="withoutRowIdEnabled">true for adding WITHOUT ROWID to the create table statement</param>
-        public SQLiteDatabaseHelper(string installedVersionsTableName = null, bool withoutRowIdEnabled = false)
-            : base(installedVersionsTableName)
+        public SQLiteDatabaseHelper(string installedVersionsTableName = null, bool skipInitInstalledVersions = false, bool withoutRowIdEnabled = false)
+            : base(installedVersionsTableName, skipInitInstalledVersions)
         {
             WithoutRowIdEnabled = withoutRowIdEnabled;
         }

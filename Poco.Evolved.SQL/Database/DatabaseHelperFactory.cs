@@ -18,19 +18,23 @@ namespace Poco.Evolved.SQL.Database
         /// </summary>
         /// <param name="databaseType">The database type for the <see cref="IDatabaseHelper<SQLUnitOfWork>" /></param>
         /// <param name="installedVersionsTableName">Optional name of the table for saving the information about installed versions</param>
+        /// <param name="skipInitInstalledVersions">
+        /// Optionally skip the CREATE TABLE statement for the table storing the information about installed versions (the table must be created manually beforehand)
+        /// </param>
         /// <returns></returns>
-        public static IDatabaseHelper<SQLUnitOfWork> CreateDatabaseHelper(DatabaseType databaseType = DatabaseType.Generic, string installedVersionsTableName = null)
+        public static IDatabaseHelper<SQLUnitOfWork> CreateDatabaseHelper(DatabaseType databaseType = DatabaseType.Generic, string installedVersionsTableName = null,
+            bool skipInitInstalledVersions = false)
         {
             switch (databaseType)
             {
                 case DatabaseType.Firebird:
-                    return new FirebirdDatabaseHelper(installedVersionsTableName);
+                    return new FirebirdDatabaseHelper(installedVersionsTableName, skipInitInstalledVersions);
 
                 case DatabaseType.SQLite:
-                    return new SQLiteDatabaseHelper(installedVersionsTableName);
+                    return new SQLiteDatabaseHelper(installedVersionsTableName, skipInitInstalledVersions);
 
                 default:
-                    return new SQLDatabaseHelper(installedVersionsTableName);
+                    return new SQLDatabaseHelper(installedVersionsTableName, skipInitInstalledVersions);
             }
         }
     }
