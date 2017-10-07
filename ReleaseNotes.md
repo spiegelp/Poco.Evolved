@@ -16,3 +16,7 @@
 ### v1.0.0
 #### Features
 * Implementation of Poco.Evolved.Core for SQL databases
+* Generic support for databases implementing standard SQL
+* Special support for:
+  * Firebird
+  * SQLite
