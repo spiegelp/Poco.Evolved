@@ -53,7 +53,7 @@ namespace Poco.Evolved.SQL.Database
                     command.CommandText = "SELECT COUNT(*) FROM RDB$RELATIONS WHERE RDB$RELATION_NAME = '" + m_installedVersionsTableName + "'";
                     command.Transaction = unitOfWork.Transaction;
 
-                    tableExists = ((int)command.ExecuteScalar()) > 0;
+                    tableExists = ((long)command.ExecuteScalar()) > 0;
                 }
 
                 if (!tableExists)
