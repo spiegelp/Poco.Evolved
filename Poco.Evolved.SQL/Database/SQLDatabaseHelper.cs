@@ -16,7 +16,7 @@ namespace Poco.Evolved.SQL.Database
     /// Therefore, specific helpers might be needed for the CREATE TABLE statement to store the information about installed versions.
     /// If there is not a specific helper for a particular database and the generic CREATE TABLE will fail, <code>skipInitInstalledVersions = true</code> skips the CREATE TABLE statement.
     /// The table must be created manually in this case.
-    /// The SELECT, UPDATE and INSERT statements however should be fine with every database supporting basic standard SQL.
+    /// The SELECT, UPDATE and INSERT statements however should be fine with every database supporting basic ANSI SQL.
     /// </summary>
     public class SQLDatabaseHelper : IDatabaseHelper<SQLUnitOfWork>
     {
@@ -30,7 +30,14 @@ namespace Poco.Evolved.SQL.Database
         /// </summary>
         protected const string DefaultInstalledVersionsTableName = nameof(InstalledVersion) + "s";
 
+        /// <summary>
+        /// The name of the table for saving the information about installed versions.
+        /// </summary>
         protected readonly string m_installedVersionsTableName;
+
+        /// <summary>
+        /// If <code>true</code>, skips the initialization of the table for saving the information about installed versions.
+        /// </summary>
         protected readonly bool m_skipInitInstalledVersions;
 
         /// <summary>

@@ -53,7 +53,7 @@ namespace Poco.Evolved.Core
         public T UnitOfWork { get; set; }
 
         /// <summary>
-        /// Constructs a new <see cref="AbstractDataMigration<T>" />
+        /// Constructs a new <see cref="AbstractDataMigration&lt;T&gt;" />
         /// </summary>
         public AbstractDataMigration() { }
 

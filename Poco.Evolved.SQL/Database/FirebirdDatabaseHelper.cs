@@ -9,6 +9,9 @@ using Poco.Evolved.SQL.Transactions;
 
 namespace Poco.Evolved.SQL.Database
 {
+    /// <summary>
+    /// Helper for database specific operations on firebird databases.
+    /// </summary>
     public class FirebirdDatabaseHelper : SQLDatabaseHelper
     {
         /// <summary>

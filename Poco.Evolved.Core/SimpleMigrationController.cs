@@ -14,7 +14,7 @@ namespace Poco.Evolved.Core
     /// <summary>
     /// Base controller for simple data migrations similar to Android's built-in SQLite.
     /// </summary>
-    /// <typeparam name="T">The type of the specific <see cref="IUnitOfWork"/></typeparam>
+    /// <typeparam name="T">The type of the specific <see cref="IUnitOfWork" /></typeparam>
     public abstract class SimpleMigrationController<T> : AbstractMigrationController<T> where T : class, IUnitOfWork
     {
         /// <summary>
@@ -23,7 +23,7 @@ namespace Poco.Evolved.Core
         public abstract long CurrentVersionNumber { get; }
 
         /// <summary>
-        /// Constructs a new <see cref="SimpleMigrationController<T>"/>.
+        /// Constructs a new <see cref="SimpleMigrationController&lt;T&gt;"/>.
         /// </summary>
         /// <param name="unitOfWorkFactory">The factory for the specific unit of work</param>
         /// <param name="databaseHelper">The helper for the specific database</param>

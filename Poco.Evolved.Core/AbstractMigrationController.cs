@@ -13,14 +13,21 @@ namespace Poco.Evolved.Core
     /// <summary>
     /// Controller with basic behavior and logic for data migrations.
     /// </summary>
-    /// <typeparam name="T">The type of the specific <see cref="IUnitOfWork"/></typeparam>
+    /// <typeparam name="T">The type of the specific <see cref="IUnitOfWork" /></typeparam>
     public abstract class AbstractMigrationController<T> : IMigrationController where T : class, IUnitOfWork
     {
+        /// <summary>
+        /// The factory for the specific unit of work.
+        /// </summary>
         protected readonly IUnitOfWorkFactory<T> m_unitOfWorkFactory;
+
+        /// <summary>
+        /// The helper for the specific database.
+        /// </summary>
         protected readonly IDatabaseHelper<T> m_databaseHelper;
 
         /// <summary>
-        /// Constructs a new <see cref="AbstractMigrationController<T>"/>.
+        /// Constructs a new <see cref="AbstractMigrationController&lt;T&gt;" />.
         /// </summary>
         /// <param name="unitOfWorkFactory">The factory for the specific unit of work</param>
         /// <param name="databaseHelper">The helper for the specific database</param>

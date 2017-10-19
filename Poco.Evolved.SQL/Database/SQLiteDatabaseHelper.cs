@@ -7,7 +7,7 @@ using Poco.Evolved.Core.Model;
 namespace Poco.Evolved.SQL.Database
 {
     /// <summary>
-    /// Helper for database specific operations on a SQLite databases.
+    /// Helper for database specific operations on SQLite databases.
     /// </summary>
     public class SQLiteDatabaseHelper : SQLDatabaseHelper
     {

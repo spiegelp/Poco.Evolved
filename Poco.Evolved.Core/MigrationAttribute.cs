@@ -6,7 +6,7 @@ namespace Poco.Evolved.Core
 {
     /// <summary>
     /// An attribute to mark a class to be considered as a data migration.
-    /// The class must implement <see cref="IDataMigration"/>.
+    /// The class must implement <see cref="IDataMigration&lt;T&gt;" />.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class MigrationAttribute : Attribute
