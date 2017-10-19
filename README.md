@@ -26,7 +26,7 @@ Binaries are available as NuGet package for .NET Standard 2.0 and .NET Framework
 * [Poco.Evolved.SQL](https://www.nuget.org/packages/Poco.Evolved.SQL/)
 
 ## Usage
-Documentation under construction. Have a look at the Poco.Evolved.???.Demo projects for an usage example. 
+You will find the documentation inside the [wiki](https://github.com/spiegelp/Poco.Evolved/wiki). Furthermore you can have a look at the Poco.Evolved.???.Demo projects for usage examples. 
 
 ## License
 Poco.Evolved is licensed under the [MIT](https://github.com/spiegelp/Poco.Evolved/blob/master/LICENSE) license. 
