@@ -11,7 +11,7 @@
     <PackageIconUrl>https://raw.githubusercontent.com/spiegelp/Poco.Evolved/master/icon/icon.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/spiegelp/Poco.Evolved</RepositoryUrl>
     <PackageTags>data schema migration version litedb</PackageTags>
-    <Version>1.0.0-beta</Version>
+    <Version>1.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
