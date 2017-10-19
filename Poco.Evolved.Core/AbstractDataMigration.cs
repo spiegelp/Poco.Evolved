@@ -64,7 +64,7 @@ namespace Poco.Evolved.Core
 
         private P GetMigrationAttributeProperty<P>(Func<MigrationAttribute, P> func)
         {
-            return func.Invoke(GetType().GetCustomAttribute<MigrationAttribute>());
+            return func.Invoke(GetType().GetTypeInfo().GetCustomAttribute<MigrationAttribute>());
         }
     }
 }

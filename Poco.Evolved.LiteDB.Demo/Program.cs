@@ -44,9 +44,16 @@ namespace Poco.Evolved.LiteDB.Demo
                     Console.WriteLine("before class migrations:");
                     PrintPersons(liteRepository);
 
+                    Assembly assembly = null;
+
+#if NETCOREAPP1_1
+                    assembly = typeof(Program).GetTypeInfo().Assembly;
+#endif
+
                     LiteDBClassMigrationController controller = new LiteDBClassMigrationController(
                         new LiteDBUnitOfWorkFactory(liteRepository),
-                        databaseHelper
+                        databaseHelper,
+                        assembly
                     );
 
                     controller.ApplyMigrations();
@@ -66,7 +73,12 @@ namespace Poco.Evolved.LiteDB.Demo
 
         private static LiteRepository InitDatabase()
         {
+#if NETCOREAPP1_1
+            string assemblyLocation = typeof(Program).GetTypeInfo().Assembly.Location;
+#else
             string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+#endif
+
             int index = assemblyLocation.LastIndexOf(@"\");
             string assemblyDirectory = assemblyLocation.Substring(0, index);
             string databaseFilename = assemblyDirectory + @"\database.litedb";

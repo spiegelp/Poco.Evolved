@@ -60,7 +60,7 @@ namespace Poco.Evolved.SQL
                 {
                     if (m_closeStream)
                     {
-                        sr?.Close();
+                        sr?.Dispose();
                     }
                 }
 

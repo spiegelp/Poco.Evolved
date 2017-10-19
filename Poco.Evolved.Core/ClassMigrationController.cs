@@ -35,8 +35,12 @@ namespace Poco.Evolved.Core
             }
             else
             {
-                // take the execution assembly, if no specific assembly for to look for the data migrations is set
+#if NETSTANDARD1_3
+                throw new ArgumentNullException(nameof(assembly) + " must not be null for .NET Standard 1.3");
+#else
+                // take the execution assembly, if no specific assembly to look for the data migrations is set
                 m_assembly = Assembly.GetEntryAssembly();
+#endif
             }
         }
 
@@ -118,16 +122,42 @@ namespace Poco.Evolved.Core
         /// <returns></returns>
         protected IEnumerable<IDataMigration<T>> GetMigrationsForAssembly()
         {
-            return m_assembly.GetTypes()
+            IEnumerable<IDataMigration<T>> types = null;
+
+#if NETSTANDARD1_3
+            types = m_assembly.DefinedTypes
+                .Where(typeInfo => !typeInfo.IsInterface
+                                    && !typeInfo.IsAbstract
+                                    && typeInfo.ImplementedInterfaces.Contains(typeof(IDataMigration<T>))
+                                    && typeInfo.GetCustomAttribute<MigrationAttribute>() != null
+                                    && typeInfo.DeclaredConstructors.Where(ctor => ctor.GetParameters().Length == 0).Any())
+                .Select(typeInfo => CreateDataMigrationForType(typeInfo));
+#else
+            types = m_assembly.GetTypes()
                 .Where(type => !type.IsInterface
                                     && !type.IsAbstract
                                     && type.GetInterfaces().Contains(typeof(IDataMigration<T>))
                                     && type.GetCustomAttribute<MigrationAttribute>() != null
                                     && type.GetConstructor(Type.EmptyTypes) != null)
-                .Select(type => CreateDataMigrationForType(type))
-                .OrderBy(dataMigration => dataMigration.VersionNumber);
+                .Select(type => CreateDataMigrationForType(type));
+#endif
+
+            return types.OrderBy(dataMigration => dataMigration.VersionNumber);
         }
 
+#if NETSTANDARD1_3
+        /// <summary>
+        /// Creates the data migration object for the specified type.
+        /// </summary>
+        /// <param name="typeInfo">The type info of the data migration</param>
+        /// <returns></returns>
+        protected virtual IDataMigration<T> CreateDataMigrationForType(TypeInfo typeInfo)
+        {
+            return (IDataMigration<T>)typeInfo.DeclaredConstructors
+                .First(ctor => ctor.GetParameters().Length == 0)
+                .Invoke(new object[0]);
+        }
+#else
         /// <summary>
         /// Creates the data migration object for the specified type.
         /// </summary>
@@ -137,5 +167,6 @@ namespace Poco.Evolved.Core
         {
             return (IDataMigration<T>)Activator.CreateInstance(type);
         }
+#endif
     }
 }
