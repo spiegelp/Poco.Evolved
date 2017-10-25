@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 using Poco.Evolved.Core.Database;
 using Poco.Evolved.Core.Exceptions;
@@ -14,7 +15,7 @@ namespace Poco.Evolved.Core
     /// Controller with basic behavior and logic for data migrations.
     /// </summary>
     /// <typeparam name="T">The type of the specific <see cref="IUnitOfWork" /></typeparam>
-    public abstract class AbstractMigrationController<T> : IMigrationController where T : class, IUnitOfWork
+    public abstract class AbstractMigrationController<T> : IMigrationController, IMigrationControllerAsync where T : class, IUnitOfWork
     {
         /// <summary>
         /// The factory for the specific unit of work.
@@ -65,6 +66,14 @@ namespace Poco.Evolved.Core
         /// Applies the open data migrations.
         /// </summary>
         public abstract void ApplyMigrations();
+
+        /// <summary>
+        /// Applies the open data migrations.
+        /// </summary>
+        public Task ApplyMigrationsAsync()
+        {
+            return Task.Run(() => ApplyMigrations());
+        }
 
         /// <summary>
         /// Gets all installed versions of data migrations installed on the database ordered ascendingly by the version number.

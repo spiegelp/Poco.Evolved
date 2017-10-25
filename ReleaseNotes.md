@@ -15,6 +15,7 @@
 ### vX.X.X (upcoming release)
 #### Features
 * Targets .NET Standard 1.3, .NET Standard 2.0 and .NET 4.5
+* Apply migrations `async`
 
 ## Poco.Evolved.LiteDB
 
