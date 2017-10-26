@@ -16,6 +16,7 @@
 #### Features
 * Targets .NET Standard 1.3, .NET Standard 2.0 and .NET 4.5
 * Apply migrations `async`
+* Skip the initialization of the storage of installed versions
 
 ## Poco.Evolved.LiteDB
 

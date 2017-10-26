@@ -19,6 +19,7 @@ namespace Poco.Evolved.SQL
 {
     /// <summary>
     /// Controller to apply data migrations via SQL files on the drive.
+    /// The files must be UTF-8 encoded.
     /// </summary>
     public class SQLFileMigrationController : AbstractMigrationController<SQLUnitOfWork>
     {
