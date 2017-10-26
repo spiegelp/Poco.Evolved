@@ -137,8 +137,6 @@ namespace Poco.Evolved.SQL
 
         private IEnumerable<SQLFileMigration> GetSQLFileMigrations()
         {
-            IEnumerable<string> sqlFilenames = GetSQLFilenames();
-
             return GetSQLFilenames()
                 .Select(filename =>
                 {
@@ -161,6 +159,7 @@ namespace Poco.Evolved.SQL
             Regex regex = new Regex(@"^[V][0-9]+_.+(\.sql)$", RegexOptions.IgnoreCase);
 
             return Directory.GetFileSystemEntries(m_sqlFilesDirectory)
+                .Select(filename => filename.Substring(filename.LastIndexOf(Path.DirectorySeparatorChar) + 1))
                 .Where(filename => regex.IsMatch(filename));
         }
 
