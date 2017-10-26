@@ -28,6 +28,12 @@ namespace Poco.Evolved.Core
         protected readonly IDatabaseHelper<T> m_databaseHelper;
 
         /// <summary>
+        /// Optionally skip the CREATE TABLE statement (or equivalent for non-SQL databases) for the table storing the information about installed versions
+        /// (the table must be created manually beforehand).
+        /// </summary>
+        public bool SkipInitInstalledVersions { get; set; }
+
+        /// <summary>
         /// Constructs a new <see cref="AbstractMigrationController&lt;T&gt;" />.
         /// </summary>
         /// <param name="unitOfWorkFactory">The factory for the specific unit of work</param>
@@ -36,6 +42,8 @@ namespace Poco.Evolved.Core
         {
             m_unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory) + " must not be null");
             m_databaseHelper = databaseHelper ?? throw new ArgumentNullException(nameof(databaseHelper) + " must not be null");
+
+            SkipInitInstalledVersions = false;
         }
 
         /// <summary>
@@ -43,21 +51,24 @@ namespace Poco.Evolved.Core
         /// </summary>
         protected void InitInstalledVersions()
         {
-            using (T unitOfWork = m_unitOfWorkFactory.CreateUnitOfWork())
+            if (!SkipInitInstalledVersions)
             {
-                try
+                using (T unitOfWork = m_unitOfWorkFactory.CreateUnitOfWork())
                 {
-                    unitOfWork.BeginTransaction();
+                    try
+                    {
+                        unitOfWork.BeginTransaction();
 
-                    m_databaseHelper.InitInstalledVersions(unitOfWork);
+                        m_databaseHelper.InitInstalledVersions(unitOfWork);
 
-                    unitOfWork.Commit();
-                }
-                catch (Exception exc)
-                {
-                    unitOfWork?.Rollback();
+                        unitOfWork.Commit();
+                    }
+                    catch (Exception exc)
+                    {
+                        unitOfWork?.Rollback();
 
-                    throw new InitializationFailedException("Error during initialization of Poco.Evolved for the database. See inner exception for details.", exc);
+                        throw new InitializationFailedException("Error during initialization of Poco.Evolved for the database. See inner exception for details.", exc);
+                    }
                 }
             }
         }
