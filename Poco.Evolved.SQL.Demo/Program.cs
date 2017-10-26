@@ -7,7 +7,6 @@ using System.Reflection;
 
 using Microsoft.Data.Sqlite;
 
-using Poco.Evolved.Core.Database;
 using Poco.Evolved.SQL;
 using Poco.Evolved.SQL.Transactions;
 using Poco.Evolved.SQL.Database;
@@ -54,6 +53,25 @@ namespace Poco.Evolved.SQL.Demo
 
                     Console.WriteLine("\nclass migrations result:");
                     PrintPersons(connection);
+
+                    // SQL file migrations (files inside the 'migrations' directory)
+                    string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+                    int index = assemblyLocation.LastIndexOf(Path.DirectorySeparatorChar);
+                    string assemblyDirectory = assemblyLocation.Substring(0, index);
+
+                    SQLFileMigrationController sqlFileMigrationController = new SQLFileMigrationController(
+                        new SQLUnitOfWorkFactory(connection),
+                        databaseHelper,
+                        Path.Combine(assemblyDirectory, "migrations")
+                    )
+                    {
+                        SkipInitInstalledVersions = true
+                    };
+
+                    sqlFileMigrationController.ApplyMigrations();
+
+                    Console.WriteLine("\nSQL file migrations result:");
+                    PrintPersons(connection);
                 }
             }
             catch (Exception exc)
@@ -67,21 +85,7 @@ namespace Poco.Evolved.SQL.Demo
 
         private static IDbConnection InitDatabase()
         {
-            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
-            int index = assemblyLocation.LastIndexOf(@"\");
-            string assemblyDirectory = assemblyLocation.Substring(0, index);
-            string databaseFilename = assemblyDirectory + @"\database.sqlite";
-
-            // delete old test database
-            if (File.Exists(databaseFilename))
-            {
-                File.Delete(databaseFilename);
-            }
-
-            // create new test database
-            File.Create(databaseFilename).Close();
-
-            IDbConnection connection = new SqliteConnection("Data Source=" + databaseFilename);
+            IDbConnection connection = new SqliteConnection("Data Source=:memory:");
             connection.Open();
 
             return connection;

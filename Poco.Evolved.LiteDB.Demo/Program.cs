@@ -73,22 +73,6 @@ namespace Poco.Evolved.LiteDB.Demo
 
         private static LiteRepository InitDatabase()
         {
-#if NETCOREAPP1_1
-            string assemblyLocation = typeof(Program).GetTypeInfo().Assembly.Location;
-#else
-            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
-#endif
-
-            int index = assemblyLocation.LastIndexOf(@"\");
-            string assemblyDirectory = assemblyLocation.Substring(0, index);
-            string databaseFilename = assemblyDirectory + @"\database.litedb";
-
-            // delete old test database
-            if (File.Exists(databaseFilename))
-            {
-                File.Delete(databaseFilename);
-            }
-
             // init mapping
             BsonMapper.Global.Entity<Person>()
                 .Id(e => e.Id)
@@ -96,7 +80,7 @@ namespace Poco.Evolved.LiteDB.Demo
                 .Field(e => e.Age, nameof(Person.Age));
 
             // create new test database
-            LiteRepository liteRepository = new LiteRepository("Filename=" + databaseFilename);
+            LiteRepository liteRepository = new LiteRepository(new MemoryStream());
 
             List<Person> persons = new List<Person>
             {
