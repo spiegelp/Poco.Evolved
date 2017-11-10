@@ -20,7 +20,7 @@ Furthermore, Poco.Evolved.SQL has special support for the following databases to
 * SQLite
 
 ## Installation
-Binaries are available as NuGet package for .NET Standard 2.0 and .NET Framework 4.5: 
+Binaries are available as NuGet package for .NET Standard 1.3, .NET Standard 2.0 and .NET Framework 4.5: 
 * [Poco.Evolved.Core](https://www.nuget.org/packages/Poco.Evolved.Core/)
 * [Poco.Evolved.LiteDB](https://www.nuget.org/packages/Poco.Evolved.LiteDB)
 * [Poco.Evolved.SQL](https://www.nuget.org/packages/Poco.Evolved.SQL/)
