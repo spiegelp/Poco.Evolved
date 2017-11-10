@@ -12,7 +12,7 @@
     <Company />
     <PackageTags>data schema migration version</PackageTags>
     <PackageIconUrl>https://raw.githubusercontent.com/spiegelp/Poco.Evolved/master/icon/icon.png</PackageIconUrl>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard1.3'">

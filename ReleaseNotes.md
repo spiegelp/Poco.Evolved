@@ -12,7 +12,7 @@
 #### Bugfixes
 * Use a transaction for creating the table (or equivalent for non-SQL databases) for installed versions
 
-### vX.X.X (upcoming release)
+### v1.1.0
 #### Features
 * Targets .NET Standard 1.3, .NET Standard 2.0 and .NET 4.5
 * Apply migrations `async`
@@ -41,7 +41,7 @@
   * SQLite
 * Targets .NET Standard 2.0 and .NET 4.5
 
-### vX.X.X (upcoming release)
+### v1.1.0
 #### Features
 * Targets .NET Standard 1.3, .NET Standard 2.0 and .NET 4.5
 * Run migrations via SQL files

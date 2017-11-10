@@ -12,6 +12,7 @@
     <RepositoryUrl>https://github.com/spiegelp/Poco.Evolved</RepositoryUrl>
     <PackageTags>data schema migration version sql rdbms</PackageTags>
     <Description>Poco.Evolved.SQL is a specific implementation of Poco.Evolved for SQL databases.</Description>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard1.3'">
