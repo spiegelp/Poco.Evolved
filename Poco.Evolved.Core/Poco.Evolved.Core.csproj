@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;netstandard2.0;net45</TargetFrameworks>
     <PackageLicenseUrl>https://github.com/spiegelp/Poco.Evolved/blob/master/LICENSE</PackageLicenseUrl>
-    <Copyright>Copyright (c) 2017 Spiegel Philipp</Copyright>
+    <Copyright>Copyright (c) 2017-2020 Spiegel Philipp</Copyright>
     <PackageProjectUrl>https://github.com/spiegelp/Poco.Evolved</PackageProjectUrl>
     <RepositoryUrl>https://github.com/spiegelp/Poco.Evolved</RepositoryUrl>
     <Description>Poco.Evolved is a framework based on .NET Standard for schema and data migrations on databases. It provides a basic, database independent API to be used with any kind of database.</Description>
